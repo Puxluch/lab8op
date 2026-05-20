@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Classes/Classes.csproj" />
+  <Project Path="lab/ClassesAndRelationships.csproj" />
+</Solution>
