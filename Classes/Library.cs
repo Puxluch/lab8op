@@ -2,7 +2,6 @@
 
 public class Library
 {
-    // Агрегація списків у головному класі
     public UserList Users { get; private set; }
     public DocumentList Documents { get; private set; }
 
@@ -28,14 +27,14 @@ public class Library
 
         if (!exists)
         {
-            return "Цей документ не знайдено у каталозі бібліотеки.";
+            return "Цей документ не знайдено у каталозі бібліотеки";
         }
 
         if (document.Borrower != null)
         {
-            return $"Документ '{document.Title}' виданий: {document.Borrower.Name} {document.Borrower.Surname}.";
+            return $"Документ '{document.Title}' виданий: {document.Borrower.Name} {document.Borrower.Surname}";
         }
 
-        return $"Документ '{document.Title}' є в наявності.";
+        return $"Документ '{document.Title}' є в наявності";
     }
 }

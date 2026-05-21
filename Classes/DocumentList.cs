@@ -17,14 +17,20 @@ public class DocumentList : IEnumerable<Document>
     {
         get
         {
-            if (index < 0 || index >= documents.Count) throw new IndexOutOfRangeException("Індекс виходить за межі.");
-            return documents[index];
+            if (index < 0 || index >= documents.Count)
+            {
+                throw new IndexOutOfRangeException("Індекс виходить за межі");
+            }
+                return documents[index];
         }
         set
         {
             ArgumentNullException.ThrowIfNull(value);
-            if (index < 0 || index >= documents.Count) throw new IndexOutOfRangeException("Індекс виходить за межі.");
-            documents[index] = value;
+            if (index < 0 || index >= documents.Count)
+            {
+                throw new IndexOutOfRangeException("Індекс виходить за межі");
+            }
+                documents[index] = value;
         }
     }
 
@@ -37,11 +43,25 @@ public class DocumentList : IEnumerable<Document>
     public void RemoveDocument(Document document)
     {
         ArgumentNullException.ThrowIfNull(document);
-        if (!documents.Remove(document)) throw new InvalidOperationException("Документ не знайдено.");
+        if (!documents.Remove(document))
+        {
+            throw new InvalidOperationException("Документ не знайдено");
+        }
+        }
+
+    public void SortByTitle()
+    {
+        documents.Sort(delegate (Document x, Document y) {
+            return StringComparer.CurrentCulture.Compare(x.Title, y.Title);
+        });
     }
 
-    public void SortByTitle() => documents.Sort((x, y) => string.Compare(x.Title, y.Title, StringComparison.Ordinal));
-    public void SortByAuthor() => documents.Sort((x, y) => string.Compare(x.Author, y.Author, StringComparison.Ordinal));
+    public void SortByAuthor()
+    {
+        documents.Sort(delegate (Document x, Document y) {
+            return StringComparer.CurrentCulture.Compare(x.Author, y.Author);
+        });
+    }
 
     public List<Document> SearchByKeyword(string keyword)
     {
@@ -50,6 +70,13 @@ public class DocumentList : IEnumerable<Document>
                                     d.Author.Contains(keyword, StringComparison.OrdinalIgnoreCase)).ToList();
     }
 
-    public IEnumerator<Document> GetEnumerator() => documents.GetEnumerator();
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    public IEnumerator<Document> GetEnumerator()
+    {
+        return documents.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
 }
